@@ -41,8 +41,8 @@ class InpaintDataset(Dataset):
         return img, height, width
 
     def random_crop(self, img, seed):
-        width_list = [256, 320, 400, 480]
-        height_list = [256, 320, 400, 480]
+        width_list = [256]
+        height_list = [256]
         random.seed(seed)
         width = random.choice(width_list)
         random.seed(seed+1)

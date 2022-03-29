@@ -114,7 +114,7 @@ def WGAN_trainer(opt):
     print('The overall number of images equals to %d' % len(trainset))
 
     # Define the dataloader
-    dataloader = DataLoader(trainset, batch_size = opt.batch_size, shuffle = False, num_workers = opt.num_workers, pin_memory = True, drop_last=True)
+    dataloader = DataLoader(trainset, batch_size = opt.batch_size, shuffle = True, num_workers = opt.num_workers, pin_memory = True, drop_last=True)
     
     # ----------------------------------------
     #            Training

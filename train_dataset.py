@@ -27,36 +27,9 @@ class InpaintDataset(Dataset):
 
     def __getitem__(self, index):
         # image
-        global SEED
         img = cv2.imread(self.imglist[index])
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        # set the different image size for each batch (data augmentation)
-        if index % self.opt.batch_size == 0:
-            SEED += 2
-        img, height, width = self.random_crop(img, SEED)
-        
-        img = torch.from_numpy(img.astype(np.float32) / 255.0).permute(2, 0, 1).contiguous()
-#         mask = torch.from_numpy(mask.astype(np.float32)).contiguous()
-#         mask = self.random_mask()[0]
-        return img, height, width
-
-    def random_crop(self, img, seed):
-        width_list = [256]
-        height_list = [256]
-        random.seed(seed)
-        width = random.choice(width_list)
-        random.seed(seed+1)
-        height = random.choice(height_list)
-        
-        max_x = img.shape[1] - width
-        max_y = img.shape[0] - height
-
-        x = np.random.randint(0, max_x)
-        y = np.random.randint(0, max_y)
-        
-        crop = img[y: y + height, x: x + width]
-
-        return crop, height, width
+        return img, 256, 256
 
     @staticmethod
     def random_ff_mask(shape, max_angle = 10, max_len = 40, max_width = 50, times = 15):

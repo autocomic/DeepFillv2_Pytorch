@@ -33,7 +33,7 @@ class InpaintDataset(Dataset):
         # set the different image size for each batch (data augmentation)
         if index % self.opt.batch_size == 0:
             SEED += 2
-        img, height, width = img[:][:], 256, 256
+        img, height, width = img[:,:], 256, 256
         img = torch.from_numpy(img.astype(np.float32) / 255.0).permute(2, 0, 1).contiguous()
 #         mask = torch.from_numpy(mask.astype(np.float32)).contiguous()
 #         mask = self.random_mask()[0]
